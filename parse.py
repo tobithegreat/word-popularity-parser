@@ -20,14 +20,12 @@ def choice():
     if choice.upper() == "P":
         get_popular_words(data)
     elif choice.upper() == "M":
-        most_common_word(data)
+        most_common_word(popular_words)
     elif choice.upper() == "Q":
         sys.exit()
 
-
-
-def get_popular_words(data):
-   # Iterate across all whole words in the file
+def get_them_words(data):
+    # Iterate across all whole words in the file
     wordcount = {}
     new_words = []
     for word in data.split():
@@ -36,11 +34,16 @@ def get_popular_words(data):
             wordcount[word] = 1
         else:
             wordcount[word] += 1
-
-    num = int(raw_input("How many words would you like to view? "))
-    length = int(raw_input("What is the word length cutoff? "))
     wordcount = sorted(wordcount.items(), key = itemgetter(1), reverse = True)
     global popular_words
+    popular_words = wordcount
+
+
+
+def get_popular_words(data):
+    num = int(raw_input("How many words would you like to view? "))
+    length = int(raw_input("What is the word length cutoff? "))
+
     popular_words = wordcount
     for inst, (word, number) in enumerate(wordcount):
         if len(word) >= length:
@@ -65,6 +68,7 @@ def most_common_word(words):
     choice()
 
 if __name__ == '__main__':
+    get_them_words(data)
     choice()
 
 
